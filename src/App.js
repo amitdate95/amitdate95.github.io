@@ -25,11 +25,38 @@ function App() {
     setTodos(newTodos);
   };
 
+  function alertUser() {
+    window.unminimize();
+    window.setFocus();
+    playAudio();
+  }
+
+  function playAudio() {
+    const throttleTime = 1000;
+    const now = Date.now();
+
+    if (now - lastPlayed < throttleTime) return;
+
+    const { path, enabled } = get(audioPathStore);
+
+    if (!enabled) return;
+
+    if (path) {
+      currentAudio.src = convertFileSrc(path);
+      currentAudio.play().catch((error) => {
+        console.warn('Audio playback was interrupted:', error);
+      });
+      lastPlayed = now;
+    } else {
+      console.warn('No audio path available');
+    }
+  }
+
   return (
     <div>
       <TitleBar />
       <div className='container'>
-        <h1>ToDos App</h1>
+        <h1>ToDos App by Amit</h1>
         <p>This is a high-class ToDos application developed by Trading Technologies Pvt. Ltd.</p>
       
         <input className='todo-input' placeholder='Add a new task' onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
@@ -41,7 +68,10 @@ function App() {
           addTodo={addTodo}
         />
         <br/>
-        <button className='add-button' onClick={() => addTodo(currentTodo)}>Add</button>
+        <button className='add-button' onClick={() => {
+          addTodo(currentTodo);
+          alertUser();
+        }}>Add</button>
       </div>
     </div>
   );
