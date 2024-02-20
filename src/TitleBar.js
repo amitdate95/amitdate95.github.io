@@ -47,9 +47,7 @@
     <>
       <div data-tauri-drag-region class="titlebar-pagename">
         <span>Todos Window</span>
-      </div>
-      <div class="titlebar-divider"></div>
-      <div class="titlebar-button">
+        <div class="titlebar-button">
         <svg
           class="titlebar-svg"
           viewBox="0 0 48 48"
@@ -107,6 +105,8 @@
           ></path>
         </svg>
       </div>
+      </div>
+      <div class="titlebar-divider"></div>
     </>
   )
 } 
