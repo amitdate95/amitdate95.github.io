@@ -27,6 +27,7 @@ function App() {
   return (
     <div>
       <h1>ToDos App</h1>
+      <p>This is a high class todos app developed by Trading Technologies</p>
     
       <input onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
 
