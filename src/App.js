@@ -1,23 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
-
+import TodoList from './TodoList'
+import { useState } from 'react';
 function App() {
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = (text) => {
+    setTodos([...todos, { text, completed: false }]);
+  };
+
+  const toggleTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].completed = !newTodos[index].completed;
+    setTodos(newTodos);
+  };
+
+  const removeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>ToDo App</h1>
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        removeTodo={removeTodo}
+      />
+      <input
+        type="text"
+        placeholder="Add a new todo"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            addTodo(e.target.value);
+            e.target.value = '';
+          }
+        }}
+      />
     </div>
   );
 }
