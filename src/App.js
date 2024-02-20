@@ -27,7 +27,9 @@ function App() {
   return (
     <div>
       <h1>ToDos App</h1>
+    
       <input onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
+
       <TodoList
         todos={todos}
         toggleTodo={toggleTodo}
