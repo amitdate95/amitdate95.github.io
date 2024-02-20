@@ -1,0 +1,1 @@
+// export {NoTicketSelectedIcon as NoTicketSelectedIcon} from './svg/NoTicketSelectedIcon.svelte'

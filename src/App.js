@@ -1,5 +1,6 @@
 import './App.css';
-import TodoList from './TodoList'
+import TodoList from './TodoList';
+import TitleBar from './TitleBar';
 import { useState } from 'react';
 function App() {
   const [todos, setTodos] = useState([]);
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div>
+      <TitleBar />
       <h1>ToDos App</h1>
       <p>This is a high class todos app developed by Trading Technologies</p>
     
