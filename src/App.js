@@ -3,9 +3,13 @@ import TodoList from './TodoList'
 import { useState } from 'react';
 function App() {
   const [todos, setTodos] = useState([]);
+  const [currentTodo, setCurrentTodo] = useState("");
 
   const addTodo = (text) => {
-    setTodos([...todos, { text, completed: false }]);
+    if(text){
+      setTodos([...todos, { text, completed: false }]);
+      setCurrentTodo('');
+    }
   };
 
   const toggleTodo = (index) => {
@@ -22,22 +26,15 @@ function App() {
 
   return (
     <div>
-      <h1>ToDo App</h1>
+      <h1>ToDos App</h1>
+      <input onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
       <TodoList
         todos={todos}
         toggleTodo={toggleTodo}
         removeTodo={removeTodo}
+        addTodo={addTodo}
       />
-      <input
-        type="text"
-        placeholder="Add a new todo"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            addTodo(e.target.value);
-            e.target.value = '';
-          }
-        }}
-      />
+      <button onClick={() => addTodo(currentTodo)}>Add</button>
     </div>
   );
 }
