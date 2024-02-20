@@ -1,10 +1,13 @@
 import './App.css';
 import TodoList from './TodoList';
 import TitleBar from './TitleBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
 function App() {
   const [todos, setTodos] = useState([]);
   const [currentTodo, setCurrentTodo] = useState("");
+  const [audioPath, setAudioPath] = useState({path: '', enabled: false});
+  let currentAudio = new Audio();
 
   const addTodo = (text) => {
     if(text){
@@ -33,11 +36,12 @@ function App() {
 
   function playAudio() {
     const throttleTime = 1000;
+    let lastPlayed = 0;
     const now = Date.now();
 
     if (now - lastPlayed < throttleTime) return;
 
-    const { path, enabled } = get(audioPathStore);
+    const { path, enabled } = audioPath;
 
     if (!enabled) return;
 
@@ -51,6 +55,18 @@ function App() {
       console.warn('No audio path available');
     }
   }
+
+  useEffect(() => {
+    setTimeout(async () => {
+      // workaround to set up listener before the loading
+      if (window.__TAURI_METADATA__) {
+        await invoke('handle_ready');
+
+        const customAudioPath = await invoke('find_audio_files');
+        setAudioPath({ path: customAudioPath[0], enabled: true });
+      }
+    }, 1);
+  }, [])
 
   return (
     <div>
