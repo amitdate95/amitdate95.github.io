@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div>
-      <h1>ToDo App</h1>
+      <h1>ToDos App</h1>
       <TodoList
         todos={todos}
         toggleTodo={toggleTodo}
