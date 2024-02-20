@@ -28,19 +28,21 @@ function App() {
   return (
     <div>
       <TitleBar />
-      <h1>ToDos App</h1>
-      <p>This is a high-class ToDos application developed by Trading Technologies Pvt. Ltd.</p>
-    
-      <input className='todo-input' placeholder='Add a new task' onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
+      <div className='container'>
+        <h1>ToDos App</h1>
+        <p>This is a high-class ToDos application developed by Trading Technologies Pvt. Ltd.</p>
+      
+        <input className='todo-input' placeholder='Add a new task' onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
 
-      <TodoList
-        todos={todos}
-        toggleTodo={toggleTodo}
-        removeTodo={removeTodo}
-        addTodo={addTodo}
-      />
-      <br/>
-      <button className='add-button' onClick={() => addTodo(currentTodo)}>Add</button>
+        <TodoList
+          todos={todos}
+          toggleTodo={toggleTodo}
+          removeTodo={removeTodo}
+          addTodo={addTodo}
+        />
+        <br/>
+        <button className='add-button' onClick={() => addTodo(currentTodo)}>Add</button>
+      </div>
     </div>
   );
 }

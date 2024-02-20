@@ -46,7 +46,7 @@
   return (
     <>
       <div data-tauri-drag-region class="titlebar-pagename">
-        <span>Todos Window</span>
+        <span className="title">Todos Window</span>
         <div class="titlebar-button">
         <svg
           class="titlebar-svg"
@@ -88,7 +88,6 @@
 
       <div
         class="titlebar-button titlebar-button-close"
-        style={{cursor: 'not-allowed'}}
       >
         <svg
           class="titlebar-svg"
