@@ -8,10 +8,10 @@ function TodoItem({ index, todo, toggleTodo, removeTodo }) {
         checked={todo.completed}
         onChange={() => toggleTodo(index)}
       />
-      <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+      <span className='todo-item' style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
         {todo.text}
       </span>
-      <button onClick={() => removeTodo(index)}>Remove</button>
+      <button className='remove-button' onClick={() => removeTodo(index)}>Remove</button>
     </li>
   );
 }
