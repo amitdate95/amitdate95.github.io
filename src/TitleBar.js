@@ -10,7 +10,7 @@
     const init = async () => {
       setWindow((await import('@tauri-apps/api/window')).appWindow);
         const updateMaximizedState = async () => {
-        setIsMaximised(await window.isMaximized());
+        setIsMaximised(await window?.isMaximized());
         };
         updateMaximizedState();
         intervalId = setInterval(updateMaximizedState, 500);
