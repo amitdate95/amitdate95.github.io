@@ -27,9 +27,9 @@ function App() {
   return (
     <div>
       <h1>ToDos App</h1>
-      <p>This is a high class todos app developed by Trading Technologies</p>
+      <p>This is a high-class ToDos application developed by Trading Technologies Pvt. Ltd.</p>
     
-      <input onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
+      <input className='todo-input' placeholder='Add a new task' onChange={(e) => setCurrentTodo(e.target.value)} value={currentTodo} />
 
       <TodoList
         todos={todos}
@@ -37,7 +37,8 @@ function App() {
         removeTodo={removeTodo}
         addTodo={addTodo}
       />
-      <button onClick={() => addTodo(currentTodo)}>Add</button>
+      <br/>
+      <button className='add-button' onClick={() => addTodo(currentTodo)}>Add</button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItem from './TodosItem';
 
-function TodoList({ addTodo, todos, toggleTodo, removeTodo }) {
+function TodoList({ todos, toggleTodo, removeTodo }) {
   return (
     <>
       <ul>
