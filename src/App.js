@@ -42,7 +42,7 @@ function App() {
     if (now - lastPlayed < throttleTime) return;
 
     const { path, enabled } = audioPath;
-
+    console.log(path, enabled);
     if (!enabled) return;
 
     if (path) {
