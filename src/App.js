@@ -29,8 +29,8 @@ function App() {
   };
 
   function alertUser() {
-    window.unminimize();
-    window.setFocus();
+    // window.unminimize();
+    // window.setFocus();
     playAudio();
   }
 
