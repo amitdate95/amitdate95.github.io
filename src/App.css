@@ -85,7 +85,7 @@ ul {
     gap: 0;
     box-sizing: border-box;
     white-space: nowrap;
-    color: var(--g100);
+    color:' var(--g100)';
     user-select: none;
   }
 
@@ -97,6 +97,7 @@ ul {
     flex-direction: row;
     align-items: center;
     gap: 16px;
+    background-color: orange;
   }
 
   .titlebar-test-mode {
@@ -115,7 +116,7 @@ ul {
   .titlebar-svg {
     width: 16px;
     height: 16px;
-    fill: currentColor;
+    fill: 'orange';
     transition: color 150ms ease-in;
   }
 
