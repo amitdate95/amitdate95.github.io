@@ -5,11 +5,11 @@
 
   const TitleBar = () => {
   const [isMaximized, setIsMaximised] = useState(false);
-  let window
+  const [window, setWindow] = useState(null);
   useEffect(() => {
     let intervalId = null;
     const init = async () => {
-        window = (await import('@tauri-apps/api/window')).appWindow;
+      setWindow((await import('@tauri-apps/api/window')).appWindow);
         const updateMaximizedState = async () => {
         setIsMaximised(await window.isMaximized());
         };
