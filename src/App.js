@@ -2,11 +2,30 @@ import './App.css';
 import TodoList from './TodoList';
 import TitleBar from './TitleBar';
 import { useEffect, useState } from 'react';
-import { mockConvertFileSrc } from "@tauri-apps/api/mocks";
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
 function App() {
   const [todos, setTodos] = useState([]);
-  mockConvertFileSrc("windows")
+  const [tauriWindow, setTauriWindow] = useState(null);
+  const [isMaximized, setIsMaximised] = useState(false);
+
+  useEffect(() => {
+    let intervalId = null;
+    const init = async () => {
+      setTauriWindow((await import('@tauri-apps/api/window')).appWindow);
+      const updateMaximizedState = async () => {
+        setIsMaximised(await tauriWindow?.isMaximized());
+      };
+      updateMaximizedState();
+      intervalId = setInterval(updateMaximizedState, 500);
+    }
+    init();
+    return () => {
+        if(intervalId){
+            clearInterval(intervalId);
+        }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [currentTodo, setCurrentTodo] = useState("");
   const [audioPath, setAudioPath] = useState({path: '', enabled: false});
@@ -32,9 +51,9 @@ function App() {
   };
 
   function alertUser() {
-    // window.unminimize();
-    // window.setFocus();
     playAudio();
+    tauriWindow.unminimize();
+    tauriWindow.setFocus();
   }
 
   function playAudio() {
@@ -49,7 +68,7 @@ function App() {
     if (!enabled) return;
 
     if (path) {
-      currentAudio.src = convertFileSrc(path);
+      currentAudio.src = convertFileSrc(path, 'asset');
       currentAudio.play().catch((error) => {
         console.warn('Audio playback was interrupted:', error);
       });
@@ -60,7 +79,7 @@ function App() {
   }
 
   useEffect(() => {
-    setTimeout(async () => {
+    const init = async () => {
       // workaround to set up listener before the loading
       if (window.__TAURI_METADATA__) {
         await invoke('handle_ready');
@@ -68,12 +87,13 @@ function App() {
         const customAudioPath = await invoke('find_audio_files');
         setAudioPath({ path: customAudioPath[0], enabled: true });
       }
-    }, 1);
-  }, [])
+    }
+    init();
+  }, []);
 
   return (
     <div>
-      <TitleBar />
+      <TitleBar tauriWindow={tauriWindow} isMaximized={isMaximized} setIsMaximised={setIsMaximised} />
       <div className='container'>
         <h1>ToDos App by Amit</h1>
         <p>This is a high-class ToDos application developed by Trading Technologies Pvt. Ltd.</p>

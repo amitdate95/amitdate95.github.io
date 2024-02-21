@@ -1,46 +1,25 @@
- import {useEffect, useState} from 'react';
+ import {useState} from 'react';
 
-
-
-  const TitleBar = () => {
-  const [isMaximized, setIsMaximised] = useState(false);
-  const [window, setWindow] = useState(null);
-  useEffect(() => {
-    let intervalId = null;
-    const init = async () => {
-      setWindow((await import('@tauri-apps/api/window')).appWindow);
-        const updateMaximizedState = async () => {
-        setIsMaximised(await window?.isMaximized());
-        };
-        updateMaximizedState();
-        intervalId = setInterval(updateMaximizedState, 500);
-    }
-    init();
-    return () => {
-        if(intervalId){
-            clearInterval(intervalId);
-        }
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const TitleBar = ({ tauriWindow, isMaximized, setIsMaximised }) => {
+  
 
   const handleMinimize = () => {
-    window.minimize();
+    tauriWindow.minimize();
   };
 
   const handleMaximize = async () => {
     if (isMaximized) {
-      await window.unmaximize();
+      await tauriWindow.unmaximize();
       setIsMaximised(false);
     } else {
-      await window.toggleMaximize();
+      await tauriWindow.toggleMaximize();
       setIsMaximised(true);
     }
   };
 
   const handleClose = () => {
       localStorage.removeItem('visibleColumnState');
-      window.close();
+      tauriWindow.close();
   };
 
   return (
