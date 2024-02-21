@@ -2,9 +2,12 @@ import './App.css';
 import TodoList from './TodoList';
 import TitleBar from './TitleBar';
 import { useEffect, useState } from 'react';
+import { mockConvertFileSrc } from "@tauri-apps/api/mocks";
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
 function App() {
   const [todos, setTodos] = useState([]);
+  mockConvertFileSrc("windows")
+
   const [currentTodo, setCurrentTodo] = useState("");
   const [audioPath, setAudioPath] = useState({path: '', enabled: false});
   let currentAudio = new Audio();
