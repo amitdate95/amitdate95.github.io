@@ -1,0 +1,4 @@
+# The environment variable files inside /edge/envs will be owned by leads.
+# All PRs making changes to these files will require an approval from one of the codeowners
+
+src/ @amitdate95
