@@ -10,6 +10,7 @@ function App() {
 
   useEffect(() => {
     let intervalId = null;
+    console.log('Changes')
     const init = async () => {
       setTauriWindow((await import('@tauri-apps/api/window')).appWindow);
       const updateMaximizedState = async () => {
